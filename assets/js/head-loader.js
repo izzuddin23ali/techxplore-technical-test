@@ -27,6 +27,7 @@
     "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
     "assets/js/nav.js",
     "assets/js/hero.js",
+    "assets/js/footer.js",
     "assets/js/script.js",
   ];
 
