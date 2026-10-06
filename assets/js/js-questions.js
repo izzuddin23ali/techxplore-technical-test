@@ -1,5 +1,6 @@
 jQuery(function ($) {
-  $(document).on("click", "#question-1-button", function () {
+  $(document).on("click", "#question-1-button", function (e) {
+    //e.preventDefault();
     console.log("click");
     let value = $("#question-1").val().replace(/\s+/g, "");
 
@@ -11,6 +12,6 @@ jQuery(function ($) {
       }
     });
 
-    console.log(intArray.sort((a, b) => a - b));
+    $("#result-1").val(intArray.sort((a, b) => a - b));
   });
 });
