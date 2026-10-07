@@ -3,36 +3,61 @@
     "number": 1,
     "question": "Write a function that removes duplicate numbers and returns the remaining values in ascending order.",
     "hint": "Input: [8, 3, 5, 3, 9, 1, 8, 5]<br/>Expected output: [1, 3, 5, 8, 9]",
-    "answer": "",
+    "answer": "var value = values['question-1'];\nvar array = value.split(',');\nvar uniqueArray = [];\n\nvar intArray = $.map(array, function (i) {\nif (!isNaN(parseInt(i))) {\n\treturn parseInt(i);\n}\n});\n\nintArray = [...new Set(intArray)];\n$('#result-1').val(intArray.sort((a, b) => a - b));",
     "section": "js",
-    "fields": [{ "type": "text", "name": "question-1", "label": "Values" }]
+    "fields": [
+      {
+        "type": "text",
+        "name": "question-1",
+        "label": "Values",
+        "value": "8, 3, 5, 3, 9, 1, 8, 5"
+      }
+    ]
   },
   {
     "number": 2,
     "question": "Write a function that counts how many times each word appears in a sentence. Ignore uppercase and lowercase differences and basic punctuation.",
     "hint": "Input: 'Data helps people make better data decisions.'<br/>Example output: data: 2, helps: 1, people: 1, make: 1, better: 1, decisions: 1",
+    "answer": "var value = values['question-2'].toLowerCase().replace(/[^a-zA-Z0-9]/g, '');\nvar array = value.split(' ');\nvar uniqueArray = [...new Set(array)];\nvar countObject = [];\nvar returnStr = '';\n\n$.each(uniqueArray, function (i, v) {\n\tvar count = array.reduce(\n\t\t(count, item) => (item === v ? count + 1 : count),\n\t\t0,\n\t);\n\tcountObject.push({ [v]: count });\n});\n\n$.each(countObject, function (i, obj) {\n\tvar key = Object.keys(obj);\n\tvar value = obj;\n\treturnStr += `${key}: ${obj[key]}, `;\n});",
     "section": "js",
-    "fields": [{ "type": "text", "name": "question-2", "label": "Values" }]
+    "fields": [
+      {
+        "type": "text",
+        "name": "question-2",
+        "label": "Values",
+        "value": "Data helps people make better data decisions"
+      }
+    ]
   },
   {
     "number": 3,
     "question": "Create a function that receives age and test score. Return 'Eligible' when age is at least 18 and the score is at least 70; otherwise return 'Not Eligible'. Include at least four test cases, including boundary values.",
-    "answer": "",
+    "answer": "var age = values['age'];\nvar score = values['score'];\nvar returnStr = '';\n\nif (age >= 18 && score >= 70) {\n\treturnStr = 'Eligible';\n} else {\n\treturnStr = 'Not Eligible';\n}\n\n$('#result-3').val(returnStr);",
     "section": "js",
     "fields": [
-      { "type": "number", "name": "age", "label": "Age" },
-      { "type": "number", "name": "score", "label": "Score" }
+      { "type": "number", "name": "age", "label": "Age", "value": 18 },
+      { "type": "number", "name": "score", "label": "Score", "value": 70 }
     ]
   },
   {
     "number": 4,
     "question": "Create a function to merge two already-sorted arrays into a single sorted array, without using a built-in sort function.",
     "hint": "Input  : [ 1, 5, 9, 12 ] and [ 2, 3, 8, 15, 20 ]</br>Expected Output : [ 1, 2, 3, 5, 8, 9, 12, 15, 20 ]",
-    "answer": "",
+    "answer": "var array1str = values['array1'].replace('[', '').replace(']', '');\nvar array2str = values['array2'].replace('[', '').replace(']', '');\nvar array1 = array1str.split(',');\nvar array2 = array2str.split(',');\n\narray1 = $.map(array1, function (i) {\n\tif (!isNaN(parseInt(i))) {\n\t\treturn parseInt(i);\n\t}\n});\n\narray2 = $.map(array2, function (i) {\n\tif (!isNaN(parseInt(i))) {\n\t\treturn parseInt(i);\n\t}\n});\n\nvar combinedArray = $.merge(array1, array2);\ncombinedArray = [...new Set(combinedArray)];\nfor (let n = 0; n < combinedArray.length; n++) {\n\tfor (let i = 0; i < combinedArray.length; i++) {\n\t\tif (combinedArray[i] > combinedArray[i + 1]) {\n\t\t\tlet temporary = combinedArray[i];\n\t\t\tcombinedArray[i] = combinedArray[i + 1];\n\t\t\tcombinedArray[i + 1] = temporary;\n\t\t}\n\t}\n}\n\n$('result-4').val(combinedArray);",
     "section": "js",
     "fields": [
-      { "type": "text", "name": "array1", "label": "Array 1" },
-      { "type": "text", "name": "array2", "label": "Array 2" }
+      {
+        "type": "text",
+        "name": "array1",
+        "label": "Array 1",
+        "value": "1, 5, 9, 12"
+      },
+      {
+        "type": "text",
+        "name": "array2",
+        "label": "Array 2",
+        "value": "1, 2, 3, 5, 8, 9, 12, 15, 20"
+      }
     ]
   },
   {
@@ -50,7 +75,7 @@
     "number": 6,
     "question": "Create an SQL query to list all categories and count how many products in each have stock below 10.",
     "hint": "",
-    "answer": "SELECT\ncategory.category_name,\nSUM(product.stock < 10) AS not_sufficient_stock\nFROM product\nJOIN category ON category.category_id = product.category_id\nGROUP BY category.category_id, category.category_name",
+    "answer": "SELECT\ncategory.category_name,\nCOALESCE(SUM(product.stock < 10), 0) AS not_sufficient_stock\nFROM category\nLEFT JOIN product ON category.category_id = product.category_id\nGROUP BY category.category_id, category.category_name",
     "section": "sql",
     "fields": [
       { "type": "textarea", "name": "question-6", "label": "Command" }
@@ -61,7 +86,7 @@
     "number": 7,
     "question": "Create an SQL query to list all categories and count how many products in each have stock of 10 or more.",
     "hint": "",
-    "answer": "SELECT\ncategory.category_name,\nSUM(product.stock >= 10) AS have_sufficient_stock\nFROM product\nJOIN category ON category.category_id = product.category_id\nGROUP BY category.category_id, category.category_name",
+    "answer": "SELECT\ncategory.category_name,\nCOALESCE(SUM(product.stock >= 10), 0) AS have_sufficient_stock\nFROM category\nLEFT JOIN product ON category.category_id = product.category_id\nGROUP BY category.category_id, category.category_name",
     "section": "sql",
     "fields": [
       { "type": "textarea", "name": "question-7", "label": "Command" }
@@ -72,7 +97,7 @@
     "number": 8,
     "question": "Create an SQL query to list all categories and the total stock value per category (price × stock, summed).",
     "hint": "",
-    "answer": "SELECT\ncategory.category_name,\nSUM(product.stock * product.price) AS total_stock_value\nFROM product\nJOIN category ON category.category_id = product.category_id\nGROUP BY category.category_id, category.category_name",
+    "answer": "SELECT\ncategory.category_name,\nCOALESCE(SUM(product.stock * product.price), 0) AS total_stock_value\nFROM category\nLEFT JOIN product ON category.category_id = product.category_id\nGROUP BY category.category_id, category.category_name",
     "section": "sql",
     "fields": [
       { "type": "textarea", "name": "question-8", "label": "Command" }
@@ -83,7 +108,7 @@
     "number": 9,
     "question": "Create an SQL query to list all categories sorted by category name and count how many products are in stock versus out of stock in each.",
     "hint": "<h4>Expected Output</h4><table class='table table-striped table-bordered'><thead><tr><th>category_name</th><th>in_stock</th><th>out_of_stock</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table>",
-    "answer": "SELECT\ncategory.category_name,\nSUM(product.stock > 0) AS in_stock,\nSUM(product.stock = 0) AS out_of_stock\nFROM product\nJOIN category ON category.category_id = product.category_id\nGROUP BY category.category_id, category.category_name\nORDER BY category.category_name ASC",
+    "answer": "SELECT\ncategory.category_name,\nCOALESCE(SUM(product.stock > 0), 0) AS in_stock,\nCOALESCE(SUM(product.stock = 0), 0) AS out_of_stock\nFROM category\nLEFT JOIN product ON category.category_id = product.category_id\nGROUP BY category.category_id, category.category_name\nORDER BY category.category_name ASC",
     "section": "sql",
     "fields": [
       { "type": "textarea", "name": "question-9", "label": "Command" }
@@ -94,7 +119,7 @@
     "number": 10,
     "question": "Create a digital guestbook check-in form (for example, for a platform such as Takemi) using HTML, CSS, and JavaScript. The form must perform client-side validation before the data is submitted.",
     "hint": "<h4>Requirements</h4><ul><li><strong>Input Fields</strong>: Full Name, Email Address, and WhatsApp Number.</li><li><strong>Validation Rules:</strong> All fields are mandatory. Email must use a valid format (example: user@email.com). WhatsApp Number must contain numbers only and have at least 10 digits.</li><li><strong>Visual Feedback:</strong> Do not use the browser’s default validation popup. Display a custom red error message directly below each invalid field.</li><li><strong>Design:</strong> Apply a clean, modern UI using CSS. The form should be easy to read and visually consistent.</li><li><strong>Submit Behavior:</strong> If any field is invalid, prevent submission and show the relevant inline error message(s).</li>",
-    "answer": "",
+    "answer": "const regex = /^[^s@]+@[^s@]+.[^s@]+$/;\n\nlet full_name = $('#full-name').val();\nlet email = $('#email-address').val();\nlet whatsapp = $('#whatsapp').val();\n\nvar full_name_error_message = '';\nvar email_error_message = '';\nvar whatsapp_error_message = '';\n\nif (full_name == '') {\n\tfull_name_error_message = 'Full Name is required';\n} else {\n\tfull_name_error_message = '';\n}\n\nvar email_validation = regex.test(email);\n\nif (!email_validation) {\n\tif (email.length == 0) {\n\t\temail_error_message = 'Email Address is required.';\n\t} else {\n\t\temail_error_message = 'Your email address is invalid.';\n\t}\n} else {\n\temail_error_message = '';\n}\n\nif (whatsapp == '') {\n\twhatsapp_error_message = 'Whatsapp number is required.';\n} else if (isNaN(whatsapp)) {\n\twhatsapp_error_message = 'Values inputted is not a number.';\n} else if (whatsapp.length < 7) {\n\twhatsapp_error_message ='Phone number must be longer than or equal to 7 digits';\n} else if (whatsapp.length > 10) {\n\twhatsapp_error_message = 'Phone number must not be longer than 10 digits';\n} else {\n\twhatsapp_error_message = '';\n}\n\n$('.error-message[data-input='full-name']').text(full_name_error_message);\nfull_name_error_message != ''\n\t? $('.error-message[data-input='full-name']').show()\n\t: $('.error-message[data-input='full-name']').hide();\n\n$('.error-message[data-input='email-address']').text(email_error_message);\nemail_error_message != ''\n\t? $('.error-message[data-input='email-address']').show()\n\t: $('.error-message[data-input='email-address']').hide();\n\n$('.error-message[data-input='whatsapp']').text(whatsapp_error_message);\nwhatsapp_error_message != ''\n\t? $('.error-message[data-input='whatsapp']').show()\n\t: $('.error-message[data-input='whatsapp']').hide();",
     "section": "form",
     "fields": []
   }

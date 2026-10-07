@@ -22,6 +22,7 @@ jQuery(function ($) {
           <p>${question_str}</p>
           ${hint}
           <h4>Answer</h4>
+          <pre class='code-box'><code data-id=${number}>${answer}</code></pre>
           `,
           );
         } else {
@@ -43,8 +44,10 @@ jQuery(function ($) {
 
           if (fields.length > 0) {
             $.each(fields, function (index, field) {
+              var value = field.value ?? "";
+              console.log(value);
               if (field.type != "textarea") {
-                var field_input = `<input class='form-control' type='${field.type}' id='${field.name}' />`;
+                var field_input = `<input class='form-control' type='${field.type}' id='${field.name}' value='${value}'/>`;
               } else {
                 var field_input = `<textarea class='form-control' id='${field.name}' value='${answer}'>${answer}</textarea>`;
               }

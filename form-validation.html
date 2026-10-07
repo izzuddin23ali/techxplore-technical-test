@@ -5,18 +5,62 @@
     </title>
     <script src="assets/js/head-loader.js" data-page="form"></script>
   </head>
-  <body data-page="form">
+  <body class="d-flex flex-column min-vh-100" data-page="form">
     <header></header>
     <main>
       <div class="container">
         <div class="row">
           <div class="col-12">
             <h3>Questions</h3>
-            <div id="questions-container"></div>
+            <div id="questions-container">
+              <div class="card">
+                <form class="form">
+                  <div>
+                    <label class="form-label" for="full-name">Full Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="full-name"
+                      placeholder="Full Name"
+                    />
+                    <span class="error-message" data-input="full-name"></span>
+                  </div>
+                  <div>
+                    <label class="form-label" for="email-address"
+                      >Email Address</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email-address"
+                      placeholder="test@placeholder.com"
+                    />
+                    <span
+                      class="error-message"
+                      data-input="email-address"
+                    ></span>
+                  </div>
+                  <div>
+                    <label class="form-label" for="whatsapp"
+                      >WhatsApp Number</label
+                    >
+                    <input
+                      type="tel"
+                      class="form-control"
+                      id="whatsapp"
+                      placeholder="6738888888"
+                    />
+                    <span class="error-message" data-input="whatsapp"></span>
+                  </div>
+                  <button class="btn btn-primary">Submit</button
+                  ><span id="result"></span>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </main>
-    <footer></footer>
+    <footer class="mt-auto"></footer>
   </body>
 </html>

@@ -68,7 +68,6 @@ jQuery(function ($) {
         $("#result-3").val(returnStr);
         break;
       case 4:
-        console.log(values);
         var array1str = values["array1"].replace("[", "").replace("]", "");
         var array2str = values["array2"].replace("[", "").replace("]", "");
         var array1 = array1str.split(",");
@@ -89,8 +88,16 @@ jQuery(function ($) {
         var combinedArray = $.merge(array1, array2);
         combinedArray = [...new Set(combinedArray)];
 
-        for (let n = 0; n < combinedArray.length; n++) {}
-
+        for (let n = 0; n < combinedArray.length; n++) {
+          for (let i = 0; i < combinedArray.length; i++) {
+            if (combinedArray[i] > combinedArray[i + 1]) {
+              let temporary = combinedArray[i];
+              combinedArray[i] = combinedArray[i + 1];
+              combinedArray[i + 1] = temporary;
+            }
+          }
+        }
+        $("#result-4").val(combinedArray);
         break;
       default:
         alert("not a question or no answer yet");
