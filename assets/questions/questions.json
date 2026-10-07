@@ -31,8 +31,8 @@
     "answer": "",
     "section": "js",
     "fields": [
-      { "type": "text", "name": "array2", "label": "Array 1" },
-      { "type": "text", "name": "array1", "label": "Array 2" }
+      { "type": "text", "name": "array1", "label": "Array 1" },
+      { "type": "text", "name": "array2", "label": "Array 2" }
     ]
   },
   {
