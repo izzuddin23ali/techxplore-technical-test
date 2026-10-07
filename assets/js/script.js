@@ -12,42 +12,70 @@ jQuery(function ($) {
           question.hint != "" && question.hint != null
             ? `<div class="text-mute">${question.hint}</div>`
             : "";
-        let answer = question.answer ? "" : "";
+        let answer = question.answer ? question.answer : "";
         let fields = question.fields ?? [];
 
-        $("#questions-container").append(
-          `<div class='card' data-id=${number}>
+        if (PAGE_KEY == "form") {
+          $("#questions-container .card").prepend(
+            `
           <h3>Question ${number}</h3>
           <p>${question_str}</p>
           ${hint}
           <h4>Answer</h4>
-          <pre class='code-box'><code>${answer}</code></pre>
+          `,
+          );
+        } else {
+          let code =
+            PAGE_KEY == "js"
+              ? `<pre class='code-box'><code data-id=${number}>${answer}</code></pre>`
+              : "";
+          $("#questions-container").append(
+            `<div class='card' data-id=${number}>
+          <h3>Question ${number}</h3>
+          <p>${question_str}</p>
+          ${hint}
+          <h4>Answer</h4>
+          ${code}
           <form id='question-${number}-form'></form>
           </div>
           `,
-        );
+          );
 
-        if (fields.length > 0) {
-          $.each(fields, function (index, field) {
-            console.log(field.type);
-            if (field.type != "textarea") {
-              var field_input = `<input class='form-control' type='${field.type}' id='${field.name}' />`;
-            } else {
-              var field_input = `<textarea class='form-control' id='${field.name}'></textarea>`;
-            }
-            $(`#question-${number}-form`).append(
-              `<div><label class='form-label' for='${field.name}'>${field.label}</label>
+          if (fields.length > 0) {
+            $.each(fields, function (index, field) {
+              if (field.type != "textarea") {
+                var field_input = `<input class='form-control' type='${field.type}' id='${field.name}' />`;
+              } else {
+                var field_input = `<textarea class='form-control' id='${field.name}' value='${answer}'>${answer}</textarea>`;
+              }
+              $(`#question-${number}-form`).append(
+                `<div><label class='form-label' for='${field.name}'>${field.label}</label>
               ${field_input}</div>`,
-            );
-          });
-        }
-        $(`#question-${number}-form`).append(
-          `<div><label class='form-label result-box' for='result-${number}'>Result</label>
+              );
+            });
+          }
+
+          if (PAGE_KEY == "js") {
+            $(`#question-${number}-form`).append(
+              `<div><label class='form-label result-box' for='result-${number}'>Result</label>
           <textarea class='form-control' id='result-${number}' disabled></textarea></div>`,
-        );
-        $(`#question-${number}-form`).append(
-          `<button class='btn btn-primary' id='question-${number}-button'>Run</button>`,
-        );
+            );
+          } else {
+            $(`#question-${number}-form`).append(
+              `<div class='result-container' id='result-${number}-container>'>
+              <h4>Result</h4>
+              <table class='table table-striped table-bordered' id='result-${number}-table'>
+              <thead><tr></tr></thead>
+              <tbody></tbody>
+              </table>
+              </div>`,
+            );
+          }
+
+          $(`#question-${number}-form`).append(
+            `<button class='btn btn-primary run-button' id='question-${number}-button' data-id=${number}>Run</button>`,
+          );
+        }
       });
     });
   });

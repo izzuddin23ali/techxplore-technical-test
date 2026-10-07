@@ -31,6 +31,12 @@
     "assets/js/script.js",
   ];
 
+  if (page == "sql") {
+    scriptQueue.push(
+      "https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js",
+    );
+  }
+
   if (pageScripts[page]) {
     scriptQueue.push(pageScripts[page]);
   }
