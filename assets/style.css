@@ -28,6 +28,12 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: var(--space-2) 0;
+}
+
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -88,4 +94,8 @@ div.text-mute * {
 
 form > div {
   margin-bottom: var(--space-2);
+}
+
+textarea {
+  field-sizing: content;
 }

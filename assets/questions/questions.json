@@ -39,7 +39,7 @@
     "number": 5,
     "question": "Create an SQL query to list all products sorted by category name and price descending. The result columns must be category_name, product_name, and price.",
     "hint": "",
-    "answer": "SELECT category.category_name, product.product_name, product.price FROM product JOIN category ON category.category_id = product.category_id ORDER BY category.category_name DESC, product.price DESC",
+    "answer": "SELECT\ncategory.category_name,\nproduct.product_name,\nproduct.price\nFROM product\nJOIN category ON category.category_id = product.category_id\nORDER BY\ncategory.category_name DESC,\nproduct.price DESC",
     "section": "sql",
     "fields": [
       { "type": "textarea", "name": "question-5", "label": "Command" }
@@ -50,7 +50,7 @@
     "number": 6,
     "question": "Create an SQL query to list all categories and count how many products in each have stock below 10.",
     "hint": "",
-    "answer": "SELECT\ncategory.category_name,\nSUM(product.stock < 10) AS total_stock\nFROM product\nJOIN category ON category.category_id = product.category_id\nGROUP BY category.category_id, category.category_name",
+    "answer": "SELECT\ncategory.category_name,\nSUM(product.stock < 10) AS not_sufficient_stock\nFROM product\nJOIN category ON category.category_id = product.category_id\nGROUP BY category.category_id, category.category_name",
     "section": "sql",
     "fields": [
       { "type": "textarea", "name": "question-6", "label": "Command" }
@@ -61,7 +61,7 @@
     "number": 7,
     "question": "Create an SQL query to list all categories and count how many products in each have stock of 10 or more.",
     "hint": "",
-    "answer": "SELECT\ncategory.category_name,\nSUM(product.stock >= 10) AS total_stock\nFROM product\nJOIN category ON category.category_id = product.category_id\nGROUP BY category.category_id, category.category_name",
+    "answer": "SELECT\ncategory.category_name,\nSUM(product.stock >= 10) AS have_sufficient_stock\nFROM product\nJOIN category ON category.category_id = product.category_id\nGROUP BY category.category_id, category.category_name",
     "section": "sql",
     "fields": [
       { "type": "textarea", "name": "question-7", "label": "Command" }
@@ -83,7 +83,7 @@
     "number": 9,
     "question": "Create an SQL query to list all categories sorted by category name and count how many products are in stock versus out of stock in each.",
     "hint": "<h4>Expected Output</h4><table class='table table-striped table-bordered'><thead><tr><th>category_name</th><th>in_stock</th><th>out_of_stock</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table>",
-    "answer": "SELECT category.category_name, SUM(product.stock > 0) AS in_stock, SUM(product.stock = 0) AS out_of_stock FROM product JOIN category ON category.category_id = product.category_id GROUP BY category.category_id, category.category_name ORDER BY category.category_name",
+    "answer": "SELECT\ncategory.category_name,\nSUM(product.stock > 0) AS in_stock,\nSUM(product.stock = 0) AS out_of_stock\nFROM product\nJOIN category ON category.category_id = product.category_id\nGROUP BY category.category_id, category.category_name\nORDER BY category.category_name ASC",
     "section": "sql",
     "fields": [
       { "type": "textarea", "name": "question-9", "label": "Command" }
