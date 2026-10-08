@@ -74,5 +74,7 @@ jQuery(function ($) {
       }
       $(`#${table_id} tbody`).append(`<tr>${row_cells}</tr>`);
     });
+
+    $(`#${table_id}`).closest(".result-container").slideDown();
   }
 });

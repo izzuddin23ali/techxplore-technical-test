@@ -1,6 +1,7 @@
 jQuery(function ($) {
   $(document).ready(function () {
     $.getJSON("assets/questions/questions.json", function (questions) {
+      var shortcuts = [];
       $.each(questions, function (index, question) {
         if (question.section != PAGE_KEY) {
           return true;
@@ -14,6 +15,7 @@ jQuery(function ($) {
             : "";
         let answer = question.answer ? question.answer : "";
         let fields = question.fields ?? [];
+        shortcuts += `<a class="card text-center" href="#question-${number}-container">Question ${number}</a>`;
 
         if (PAGE_KEY == "form") {
           $("#questions-container .card").prepend(
@@ -31,7 +33,7 @@ jQuery(function ($) {
               ? `<pre class='code-box'><code data-id=${number}>${answer}</code></pre>`
               : "";
           $("#questions-container").append(
-            `<div class='card' data-id=${number}>
+            `<div class='card' data-id=${number} id='question-${number}-container'>
           <h3>Question ${number}</h3>
           <p>${question_str}</p>
           ${hint}
@@ -60,7 +62,7 @@ jQuery(function ($) {
 
           if (PAGE_KEY == "js") {
             $(`#question-${number}-form`).append(
-              `<div><label class='form-label result-box' for='result-${number}'>Result</label>
+              `<div class='result-container'><label class='form-label result-box' for='result-${number}'>Result</label>
           <textarea class='form-control' id='result-${number}' disabled></textarea></div>`,
             );
           } else {
@@ -80,6 +82,7 @@ jQuery(function ($) {
           );
         }
       });
+      $("#shortcuts-container").html(shortcuts);
     });
   });
 

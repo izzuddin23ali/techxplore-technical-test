@@ -29,6 +29,7 @@
     "assets/js/hero.js",
     "assets/js/footer.js",
     "assets/js/script.js",
+    "assets/js/prefooter.js",
   ];
 
   if (page == "sql") {
