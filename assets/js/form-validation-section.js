@@ -57,5 +57,13 @@ jQuery(function ($) {
     whatsapp_error_message != ""
       ? $('.error-message[data-input="whatsapp"]').show()
       : $('.error-message[data-input="whatsapp"]').hide();
+
+    if (
+      full_name_error_message == "" &&
+      email_error_message == "" &&
+      whatsapp_error_message == ""
+    ) {
+      $(this).text("Form Submitted Successfully");
+    }
   });
 });
